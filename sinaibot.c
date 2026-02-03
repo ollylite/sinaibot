@@ -2561,10 +2561,10 @@ command(telebot_handler_t handle, telebot_message_t *msg)
 		return hug(handle, msg, strtok(NULL, " "));
 
 	else if (!strcmp(cmd, "tickle"))
-		return tickle(handle, msg);
+		return tickle(handle, msg, strtok(NULL, " "));
 
 	else if (!strcmp(cmd, "pat"))
-		return pat(handle, msg);
+		return pat(handle, msg, strtok(NULL, " "));
 
 	return femboy(handle, msg, cmd);
 }
