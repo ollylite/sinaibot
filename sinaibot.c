@@ -2178,6 +2178,90 @@ femboy(telebot_handler_t handle, telebot_message_t *msg, char *cmd)
 }
 
 inline static void
+hug(telebot_handler_t handle, telebot_message_t *msg, char *ptr)
+{
+	I8* string[USHRT_MAX];
+
+	if(!prt){
+		master_send_message(handle, msg->chat->id, "Недостаточно аргументов!!!", 
+                            false, msg->message_id, NULL);
+		return;
+	}
+
+	if(!strcmp(prt+1, get_name_from_msg(msg))){
+		sprintf(string, sizeof(string), "Вы не можете обнять себя!!\n*обнимает %s*", get_name_from_msg(msg));
+		master_send_message(handle, msg->chat->id, string, 
+                            false, msg->message_id, NULL);
+		return;
+	}
+
+	if(prt[0]!='@'){
+		master_send_message(handle, msg->chat->id, "Неправильный аргумент!!!", 
+                            false, msg->message_id, NULL);
+	}
+
+	sprintf(string, sizeof(string), "*%s обнимает %s", get_name_from_msg(msg), prt+1);
+	master_send_message(handle, msg->chat->id, string, 
+                            false, msg->message_id, NULL);
+}
+
+inline static void
+tickle(telebot_handler_t handle, telebot_message_t *msg, char *ptr)
+{
+	I8* string[USHRT_MAX];
+
+	if(!prt){
+		master_send_message(handle, msg->chat->id, "Недостаточно аргументов!!!", 
+                            false, msg->message_id, NULL);
+		return;
+	}
+
+	if(!strcmp(prt+1, get_name_from_msg(msg))){
+		sprintf(string, sizeof(string), "Вы не можете щекотать себя!!\n*обнимает %s*", get_name_from_msg(msg));
+		master_send_message(handle, msg->chat->id, string, 
+                            false, msg->message_id, NULL);
+		return;
+	}
+
+	if(prt[0]!='@'){
+		master_send_message(handle, msg->chat->id, "Неправильный аргумент!!!", 
+                            false, msg->message_id, NULL);
+	}
+
+	sprintf(string, sizeof(string), "*%s щекочет %s", get_name_from_msg(msg), prt+1);
+	master_send_message(handle, msg->chat->id, string, 
+                            false, msg->message_id, NULL);
+}
+
+inline static void
+pat(telebot_handler_t handle, telebot_message_t *msg, char *ptr)
+{
+	I8* string[USHRT_MAX];
+
+	if(!prt){
+		master_send_message(handle, msg->chat->id, "Недостаточно аргументов!!!", 
+                            false, msg->message_id, NULL);
+		return;
+	}
+
+	if(!strcmp(prt+1, get_name_from_msg(msg))){
+		sprintf(string, sizeof(string), "Вы не можете гладить себя!!\n*гладит %s*", get_name_from_msg(msg));
+		master_send_message(handle, msg->chat->id, string, 
+                            false, msg->message_id, NULL);
+		return;
+	}
+
+	if(prt[0]!='@'){
+		master_send_message(handle, msg->chat->id, "Неправильный аргумент!!!", 
+                            false, msg->message_id, NULL);
+	}
+
+	sprintf(string, sizeof(string), "*%s гладит %s", get_name_from_msg(msg), prt+1);
+	master_send_message(handle, msg->chat->id, string, 
+                            false, msg->message_id, NULL);
+}
+
+inline static void
 check_vote_commands(telebot_handler_t handle, telebot_message_t *msg, char *cmd)
 {
 	cvector_iterator(vote_t) it = NULL;
@@ -2472,6 +2556,15 @@ command(telebot_handler_t handle, telebot_message_t *msg)
 
 	else if (!strcmp(cmd, "femboyday"))
 		return femboyday(handle, msg);
+
+	else if (!strcmp(cmd, "hug"))
+		return hug(handle, msg, strtok(NULL, " "));
+
+	else if (!strcmp(cmd, "tickle"))
+		return tickle(handle, msg);
+
+	else if (!strcmp(cmd, "pat"))
+		return pat(handle, msg);
 
 	return femboy(handle, msg, cmd);
 }
